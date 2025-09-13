@@ -1,4 +1,9 @@
 * {
     box-sizing: border-box;
     font-family: "Fira Code Medium", monospace;
+    user-select: none;
+}
+
+.table-cover img {
+    width: 5vw;
 }
