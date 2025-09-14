@@ -4,9 +4,10 @@ namespace App\Routing;
 
 use App\Controllers\HomeController;
 use App\Controllers\BookController;
-//use App\Controllers\ReservationController;
 
+//use App\Controllers\ReservationController;
 //use App\Controllers\RoomController;
+
 use App\Views\Display;
 
 class Router
@@ -75,21 +76,21 @@ class Router
         $id = $data['id'] ?? null;
 
         switch ($requestUri) {
-            case "/guests":
+            case "/books":
                 if (!empty($data)) {
-                    $guestController = new GuestController;
-                    $guestController->save($data);
+                    $bookController = new BookController;
+                    $bookController->save($data);
                 }
                 break;
-            case "/guests/create":
-                $guestController = new GuestController;
-                $guestController->create();
+            case "/books/create":
+                $bookController = new BookController;
+                $bookController->create();
                 break;
-            case "/guests/edit":
-                $guestController = new GuestController;
-                $guestController->edit($id);
+            case "/books/edit":
+                $bookController = new BookController;
+                $bookController->edit($id);
                 break;
-
+/*
             case "/reservations":
                 if (!empty($data)) {
                     $reservationController = new ReservationController;
@@ -119,7 +120,7 @@ class Router
                 $roomController = new RoomController;
                 $roomController->edit($id);
                 break;
-
+*/
             default:
                 $this->notFound();
                 break;
@@ -131,13 +132,13 @@ class Router
         $data = $this->filterPostData($_POST);
 
         switch ($requestUri) {
-            case "/guests":
+            case "/books":
                 $id = $data['id'] ?? null;
-                $guestController = new GuestController;
-                $guestController->update($id, $data);
+                $bookController = new BookController;
+                $bookController->update($id, $data);
                 break;
 
-            case "/rooms":
+            /*case "/rooms":
                 $id = $data['id'] ?? null;
                 $roomController = new RoomController;
                 $roomController->update($id, $data);
@@ -148,7 +149,7 @@ class Router
                 $reservationController = new ReservationController;
                 $reservationController->update($id, $data);
                 break;
-
+*/
             default:
                 $this->notFound();
                 break;
@@ -160,12 +161,12 @@ class Router
         $data = $this->filterPostData($_POST);
 
         switch ($requestUri) {
-            case "/guests":
-                $guestController = new GuestController;
-                $guestController->delete((int)$data['id']);
+            case "/books":
+                $bookController = new BookController;
+                $bookController->delete((int)$data['id']);
                 break;
 
-            case "/rooms":
+            /*case "/rooms":
                 $roomController = new RoomController;
                 $roomController->delete((int)$data['id']);
                 break;
@@ -174,7 +175,7 @@ class Router
                 $reservationController = new ReservationController;
                 $reservationController->delete((int)$data['id']);
                 break;
-
+*/
             default:
                 $this->notFound();
                 break;

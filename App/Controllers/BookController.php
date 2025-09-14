@@ -35,26 +35,65 @@ class BookController extends Controller {
 
     public function save(array $data): void
     {
-        /*if (empty($data['name']) || empty($data['age'])) {
+        if (empty($data['title'])
+            || empty($data['pages'])
+            || empty($data['ISBN'])
+            || empty($data['release_year'])
+            || empty($data['language'])
+            || empty($data['genre_id'])
+            || empty($data['author_id'])
+            || empty($data['publisher_id'])
+            || empty($data['cover']))
+        {
             $_SESSION['warning_message'] = "All fields are required.";
-            $this->redirect('/guests'); // Redirect if input is invalid
+            $this->redirect('/books'); // Redirect if input is invalid
         }
         // Use the existing model instance
-        $this->model->name = $data['name'];
-        $this->model->age = $data['age'];
-        $this->model->create();*/
+        $this->model->title = $data['title'];
+        $this->model->pages = $data['pages'];
+        $this->model->ISBN = $data['ISBN'];
+        $this->model->release_year = $data['release_year'];
+        $this->model->language = $data['language'];
+        $this->model->genre_id = $data['genre_id'];
+        $this->model->author_id = $data['author_id'];
+        $this->model->publisher_id = $data['publisher_id'];
+        $this->model->cover = $data['cover'];
+
+        $this->model->create();
         $this->redirect('/books');
     }
 
     public function update(int $id, array $data): void
     {
-        /*$guest = $this->model->find($id);
-        if (!$guest || empty($data['name']) || empty($data['age'])) {
-            $this->redirect('/guests');
+        $book = $this->model->find($id);
+        if (!$book
+            || empty($data['id'])
+            || empty($data['title'])
+            || empty($data['pages'])
+            || empty($data['ISBN'])
+            || empty($data['release_year'])
+            || empty($data['language'])
+            || empty($data['genre_id'])
+            || empty($data['author_id'])
+            || empty($data['publisher_id'])
+            || empty($data['cover']))
+        {
+            $_SESSION['warning_message'] = "All fields are required.";
+            $this->redirect('/books');
         }
-        $guest->name = $data['name'];
-        $guest->age = $data['age'];
-        $guest->update();*/
+
+        $book->id = $data['id'];
+        $book->title = $data['title'];
+        $book->pages = $data['pages'];
+        $book->ISBN = $data['ISBN'];
+        $book->release_year = $data['release_year'];
+        $book->language = $data['language'];
+        $book->genre_id = $data['genre_id'];
+        $book->author_id = $data['author_id'];
+        $book->publisher_id = $data['publisher_id'];
+        $book->cover = $data['cover'];
+
+        $book->update();
         $this->redirect('/books');
     }
 
