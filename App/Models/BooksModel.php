@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\PublisherModel;
+
 class BooksModel extends Model
 {
     public ?int $book_id = null;
@@ -55,5 +57,23 @@ class BooksModel extends Model
         if ($available_copies != null) {
             $this->available_copies = $available_copies;
         }
+    }
+
+    function find(int $id): ?static
+    {
+        $sql = self::select() . " WHERE book_id = :id";
+
+        $qryResult = $this->db->execSql($sql, ['id' => $id]);
+        if (empty($qryResult)) {
+            return null;
+        }
+
+        return $this->mapToModel($qryResult[0]);
+    }
+
+    public function getPublisher() {
+        $publisher = new PublisherModel();
+        $publisher = $publisher->find($this->publisher_id);
+        return $publisher;
     }
 }

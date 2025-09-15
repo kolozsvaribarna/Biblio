@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 use App\Models\BooksModel;
-//use App\Models\ReservationsModel;
 
 use App\Views\Display;
 
@@ -48,7 +47,7 @@ class BookController extends Controller {
             $this->redirect('/books');
         }
         $this->model->title = $data['title'];
-        $this->model->ISBN = $data['isbn'];
+        $this->model->isbn = $data['isbn'];
         $this->model->pages = $data['pages'];
         $this->model->cover_url = $data['cover_url'];
         $this->model->available_copies = $data['available_copies'];
@@ -80,7 +79,7 @@ class BookController extends Controller {
 
         $book->book_id = $data['book_id'];
         $book->title = $data['title'];
-        $book->ISBN = $data['isbn'];
+        $book->isbn = $data['isbn'];
         $book->pages = $data['pages'];
         $book->cover_url = $data['cover_url'];
         $book->available_copies = $data['available_copies'];
@@ -115,5 +114,4 @@ class BookController extends Controller {
 
         $this->redirect('/books');
     }
-
 }

@@ -8,6 +8,7 @@ use App\Controllers\BookController;
 //use App\Controllers\ReservationController;
 //use App\Controllers\RoomController;
 
+use App\Controllers\PublisherController;
 use App\Views\Display;
 
 class Router
@@ -55,16 +56,11 @@ class Router
                 $bookController = new BookController;
                 $bookController->index();
                 return;
-            /*case '/guests':
-                $guestController = new GuestController;
-                $guestController->index();
+            case '/publishers':
+                $publisherController = new PublisherController;
+                $publisherController->index();
                 return;
 
-            case '/rooms':
-                $roomsController = new RoomController;
-                $roomsController->index();
-                return;
-*/
             default:
                 $this->notFound();
         }
@@ -90,37 +86,22 @@ class Router
                 $bookController = new BookController;
                 $bookController->edit($id);
                 break;
-/*
-            case "/reservations":
+
+            case "/publishers":
                 if (!empty($data)) {
-                    $reservationController = new ReservationController;
-                    $reservationController->save($data);
+                    $publisherController = new PublisherController;
+                    $publisherController->save($data);
                 }
                 break;
-            case "/reservations/create":
-                $reservationController = new ReservationController;
-                $reservationController->create();
+            case "/publishers/create":
+                $publisherController = new PublisherController;
+                $publisherController->create();
                 break;
-            case "/reservations/edit":
-                $reservationController = new ReservationController;
-                $reservationController->edit($id);
+            case "/publishers/edit":
+                $publisherController = new PublisherController;
+                $publisherController->edit($id);
                 break;
 
-            case "/rooms":
-                if (!empty($data)) {
-                    $roomController = new RoomController;
-                    $roomController->save($data);
-                }
-                break;
-            case "/rooms/create":
-                $roomController = new RoomController;
-                $roomController->create();
-                break;
-            case "/rooms/edit":
-                $roomController = new RoomController;
-                $roomController->edit($id);
-                break;
-*/
             default:
                 $this->notFound();
                 break;
@@ -138,18 +119,12 @@ class Router
                 $bookController->update($id, $data);
                 break;
 
-            /*case "/rooms":
+            case "/publishers":
                 $id = $data['id'] ?? null;
-                $roomController = new RoomController;
-                $roomController->update($id, $data);
+                $publisherController = new PublisherController;
+                $publisherController->update($id, $data);
                 break;
 
-            case "/reservations":
-                $id = $data['id'] ?? null;
-                $reservationController = new ReservationController;
-                $reservationController->update($id, $data);
-                break;
-*/
             default:
                 $this->notFound();
                 break;
@@ -166,16 +141,11 @@ class Router
                 $bookController->delete((int)$data['id']);
                 break;
 
-            /*case "/rooms":
-                $roomController = new RoomController;
-                $roomController->delete((int)$data['id']);
+            case "/publishers":
+                $publisherController = new PublisherController;
+                $publisherController->delete((int)$data['id']);
                 break;
 
-            case "/reservations":
-                $reservationController = new ReservationController;
-                $reservationController->delete((int)$data['id']);
-                break;
-*/
             default:
                 $this->notFound();
                 break;

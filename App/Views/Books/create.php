@@ -6,7 +6,7 @@ echo <<<HTML
         <input type="text" name="title" id="title" value=""><br>
         <label for="pages">Pages</label>
         <input type="number" min="1" name="pages" id="pages" value=""><br>
-        <label for="isbn">ISBN number</label>
+        <label for="isbn">ISBN</label>
         <input type="number" name="isbn" id="isbn" value=""><br>
         <label for="available_copies">Available copies</label>
         <input type="number" name="available_copies" id="available_copies" value=""><br>
@@ -19,8 +19,8 @@ echo <<<HTML
         <label for="cover_url">Cover URL</label>
         <input type="url" name="cover_url" id="cover_url" value=""><br>    
         
-        // TODO make publisher dropdown when typing (+ option to add new)
-        // TODO: add AUTHOR and GENRE selection    
+        <!-- TODO make publisher dropdown when typing (+ option to add new)
+             TODO: add AUTHOR and GENRE selection   --> 
     <br>
     <button type="submit" name="btn-update" class="btn-save"><i class="fa fa-save"></i>&nbsp;Save</button>
 </fieldset>

@@ -3,21 +3,22 @@
 $tableBody = "";
 foreach ($books as $book) {
 
-    // TODO publisher
+    $publisher = $book->getPublisher();
+
     // TODO authors
     // TODO genres
 
     $tableBody .= <<<HTML
             <tr>
-                <td>{$book->book_id}</td>
+                <!--<td>{$book->book_id}</td>-->
+                <td class="table-cover"><img src="{$book->cover_url}" alt="img"</td>
                 <td>{$book->title}</td>
                 <td>{$book->isbn}</td>
                 <td>{$book->pages}</td>
-                <td class="table-cover"><img src="{$book->cover_url}" alt="img"</td>
                 <td>{$book->available_copies}</td>
                 <td>{$book->language}</td>
                 <td>{$book->release_year}</td>
-                <td>{$book->publisher_id}</td>
+                <td>{$publisher->name}</td>
 
                 <td class='flex float-right'>
                     <form method='post' action='/books/edit'>
@@ -39,18 +40,18 @@ $html = <<<HTML
         
         <h2>Books</h2>
         
-        <table id='' class='' border="1">
+        <table id='' class='index-table'>
             <thead>
                 <tr>
-                    <th>#</th>
+                    <!--<th>#</th>-->
+                    <th><!--cover--></th>
                     <th>Title</th>
                     <th>ISBN</th>
                     <th>pages</th>
-                    <th><!--cover--></th>
                     <th>Copies av.</th>
                     <th>language</th>
                     <th>release year</th>
-                    <th>publisher_id</th>
+                    <th>Publisher</th>
                 
                     <th>
                         <form method='post' action='/books/create'>
