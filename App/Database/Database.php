@@ -11,7 +11,7 @@ class Database
         'host' => 'localhost',
         'user' => 'root',
         'password' => '',
-        'database' => 'book'
+        'database' => 'biblio'
     ];
 
     protected static ?Database $instance = null;

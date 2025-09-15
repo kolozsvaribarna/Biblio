@@ -15,7 +15,7 @@ class BookController extends Controller {
 
     public function index(): void
     {
-        $books = $this->model->all(['order_by' => ['id'], 'direction' => ['ASC']]);
+        $books = $this->model->all(['order_by' => ['book_id'], 'direction' => ['ASC']]);
         $this->render('books/index', ['books' => $books]);
     }
 
@@ -35,29 +35,27 @@ class BookController extends Controller {
 
     public function save(array $data): void
     {
-        if (empty($data['title'])
+        if (empty($data['title']) //empty($data['book_id'])
+            || empty($data['isbn'])
             || empty($data['pages'])
-            || empty($data['ISBN'])
-            || empty($data['release_year'])
+            || empty($data['cover_url'])
+            || empty($data['available_copies'])
             || empty($data['language'])
-            || empty($data['genre_id'])
-            || empty($data['author_id'])
-            || empty($data['publisher_id'])
-            || empty($data['cover']))
+            || empty($data['release_year'])
+            || empty($data['publisher_id']))
         {
             $_SESSION['warning_message'] = "All fields are required.";
-            $this->redirect('/books'); // Redirect if input is invalid
+            $this->redirect('/books');
         }
-        // Use the existing model instance
         $this->model->title = $data['title'];
+        $this->model->ISBN = $data['isbn'];
         $this->model->pages = $data['pages'];
-        $this->model->ISBN = $data['ISBN'];
-        $this->model->release_year = $data['release_year'];
+        $this->model->cover_url = $data['cover_url'];
+        $this->model->available_copies = $data['available_copies'];
         $this->model->language = $data['language'];
-        $this->model->genre_id = $data['genre_id'];
-        $this->model->author_id = $data['author_id'];
+        $this->model->release_year = $data['release_year'];
         $this->model->publisher_id = $data['publisher_id'];
-        $this->model->cover = $data['cover'];
+
 
         $this->model->create();
         $this->redirect('/books');
@@ -67,31 +65,28 @@ class BookController extends Controller {
     {
         $book = $this->model->find($id);
         if (!$book
-            || empty($data['id'])
-            || empty($data['title'])
-            || empty($data['pages'])
-            || empty($data['ISBN'])
-            || empty($data['release_year'])
-            || empty($data['language'])
-            || empty($data['genre_id'])
-            || empty($data['author_id'])
-            || empty($data['publisher_id'])
-            || empty($data['cover']))
+        || empty($data['title'])
+        || empty($data['isbn'])
+        || empty($data['pages'])
+        || empty($data['cover_url'])
+        || empty($data['available_copies'])
+        || empty($data['language'])
+        || empty($data['release_year'])
+        || empty($data['publisher_id']))
         {
             $_SESSION['warning_message'] = "All fields are required.";
             $this->redirect('/books');
         }
 
-        $book->id = $data['id'];
+        $book->book_id = $data['book_id'];
         $book->title = $data['title'];
+        $book->ISBN = $data['isbn'];
         $book->pages = $data['pages'];
-        $book->ISBN = $data['ISBN'];
-        $book->release_year = $data['release_year'];
+        $book->cover_url = $data['cover_url'];
+        $book->available_copies = $data['available_copies'];
         $book->language = $data['language'];
-        $book->genre_id = $data['genre_id'];
-        $book->author_id = $data['author_id'];
+        $book->release_year = $data['release_year'];
         $book->publisher_id = $data['publisher_id'];
-        $book->cover = $data['cover'];
 
         $book->update();
         $this->redirect('/books');

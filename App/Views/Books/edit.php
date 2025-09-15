@@ -14,8 +14,8 @@ echo <<<HTML
     <input type="number" name="release_year" id="release_year" value="{$book->release_year}"><br>
     <label for="language">Language</label>
     <input type="text" name="language" id="language" value="{$book->language}"><br>
-    <label for="genre">Genre (id)</label>
-    <input type="text" name="genre" id="genre" value="{$book->genre_id}"><br>
+    <label for="genre_id">Genre (id)</label>
+    <input type="text" name="genre_id" id="genre_id" value="{$book->genre_id}"><br>
     <label for="author_id">Author (id)</label>
     <input type="text" name="author_id" id="author_id" value="{$book->author_id}"><br>
     <label for="publisher_id">Publisher (id)</label>

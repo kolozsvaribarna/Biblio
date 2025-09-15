@@ -4,33 +4,32 @@ namespace App\Models;
 
 class BooksModel extends Model
 {
-    public ?int $id = null;
+    public ?int $book_id = null;
     public ?string $title = null;
+    public ?string $isbn = null;
     public ?int $pages = null;
-    public ?int $ISBN = null;
-    public ?int $release_year = null;
+    public ?string $cover_url = null;
+    public ?int $available_copies = null;
     public ?string $language = null;
-    public ?int $genre_id = null;
-    public ?int $author_id = null;
+    public ?int $release_year = null;
     public ?int $publisher_id = null;
-    public ?string $cover = null;
 
-    protected static $table = 'books';
+    protected static $table = 'book';
 
-    public function __construct(?int $id = null,
+    public function __construct(
+            ?int  $book_id = null,
             ?string $title = null,
+            ?string $isbn = null,
             ?int $pages = null,
-            ?int $ISBN = null,
-            ?int $release_year = null,
+            ?string $cover_url = null,
+            ?int $available_copies = null,
             ?string $language = null,
-            ?int $genre_id = null,
-            ?int $author_id = null,
-            ?int $publisher_id = null,
-            ?string $cover = null,)
+            ?int $release_year = null,
+            ?int $publisher_id = null,)
     {
         parent::__construct();
-        if ($id != null) {
-            $this->id = $id;
+        if ($book_id != null) {
+            $this->book_id = $book_id;
         }
         if ($title != null) {
             $this->title = $title;
@@ -38,8 +37,8 @@ class BooksModel extends Model
         if ($pages != null) {
             $this->pages = $pages;
         }
-        if ($ISBN != null) {
-            $this->ISBN = $ISBN;
+        if ($isbn != null) {
+            $this->isbn = $isbn;
         }
         if ($release_year != null) {
             $this->release_year = $release_year;
@@ -47,17 +46,14 @@ class BooksModel extends Model
         if ($language != null) {
             $this->language = $language;
         }
-        if ($genre_id != null) {
-            $this->genre_id = $genre_id;
-        }
-        if ($author_id != null) {
-            $this->author_id = $author_id;
-        }
         if ($publisher_id != null) {
             $this->publisher_id = $publisher_id;
         }
-        if ($cover != null) {
-            $this->cover = $cover;
+        if ($cover_url != null) {
+            $this->cover_url = $cover_url;
+        }
+        if ($available_copies != null) {
+            $this->available_copies = $available_copies;
         }
     }
 }
