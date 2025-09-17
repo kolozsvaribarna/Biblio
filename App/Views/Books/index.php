@@ -8,63 +8,58 @@ foreach ($books as $book) {
     // TODO authors
     // TODO genres
 
-    $tableBody .= <<<HTML
-            <tr>
-                <!--<td>{$book->book_id}</td>-->
-                <td class="table-cover"><img src="{$book->cover_url}" alt="img"</td>
-                <td>{$book->title}</td>
-                <td>{$book->isbn}</td>
-                <td>{$book->pages}</td>
-                <td>{$book->available_copies}</td>
-                <td>{$book->language}</td>
-                <td>{$book->release_year}</td>
-                <td>{$publisher->name}</td>
-
-                <td class='flex float-right'>
-                    <form method='post' action='/books/edit'>
-                        <input type='hidden' name='id' value='{$book->book_id}'>
-                        <button type='submit' name='btn-edit' title='Edit'><i class='fa fa-edit'></i></button>
-                    </form>
-                    <form method='post' action='/books'>
-                        <input type='hidden' name='id' value='{$book->book_id}'>
-                        <input type='hidden' name='_method' value='DELETE'>
-                        <button type='submit' name='btn-del' title='Delete'><i class='fa fa-trash trash'></i></button>
-                    </form>
-
-                </td>
-            </tr>
-            HTML;
+    $tableBody .=
+<<<HTML
+        <div class="book-card">
+            <img class="book-card-cover" src="{$book->cover_url}" alt="">
+                <div class="book-card-info">
+                <h2 class="book-card-title">{$book->title}</h2>
+                <h5 class="book-card-authors">author(s)</h5>
+                <ul class="book-card-meta">
+                    <li><strong>Genres:</strong> genre(s)</li>
+                    <li><strong>Pages:</strong> {$book->pages}</li>
+                    <li><strong>Language:</strong> {$book->language}</li>
+                    <li><strong>Release Year:</strong> {$book->release_year}</li>
+                    <li><strong>ISBN:</strong> {$book->isbn}</li>
+                    <li><strong>Available Copies:</strong> {$book->available_copies}</li>
+                </ul>
+            </div>
+            <div class="book-card-actions">
+            <form method="post" action="/books/edit">
+              <input type="hidden" name="id" value="{$book->book_id}">
+              <button type="submit" name="btn-edit" title="Edit">
+                <i class="fa fa-edit"></i>
+              </button>
+            </form>
+        
+            <form method="post" action="/books">
+              <input type="hidden" name="id" value="{$book->book_id}">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" name="btn-del" title="Delete">
+                <i class="fa fa-trash trash"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+HTML;
 }
 
-$html = <<<HTML
+$html =
+<<<HTML
+        <h1>Books</h1>
         
-        <h2>Books</h2>
-        
-        <table id='' class='index-table'>
-            <thead>
-                <tr>
-                    <!--<th>#</th>-->
-                    <th><!--cover--></th>
-                    <th>Title</th>
-                    <th>ISBN</th>
-                    <th>pages</th>
-                    <th>Copies av.</th>
-                    <th>language</th>
-                    <th>release year</th>
-                    <th>Publisher</th>
-                
-                    <th>
-                        <form method='post' action='/books/create'>
-                            <button type="submit" name='btn-plus' title='New'>
-                                <i class='fa fa-plus plus'></i></button>
-                        </form>
-                    </th>
-                </tr>
-            </thead>
-             <tbody>%s</tbody>
-            <tfoot>
-            </tfoot>
+        <table>
+            <div class="table-header">
+                <form method="post" action="/books/create">
+                    <button type="submit" name="btn-plus" title="New">
+                        <i class="fa fa-plus plus"></i>
+                    </button>
+                </form>
+            </div>
+            <tbody>
+            <div class="book-card-grid">%s</div>
+            </tbody>
         </table>
-        HTML;
+HTML;
 
 echo sprintf($html, $tableBody);

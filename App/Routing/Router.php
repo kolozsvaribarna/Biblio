@@ -2,6 +2,7 @@
 
 namespace App\Routing;
 
+use App\Controllers\AuthorController;
 use App\Controllers\HomeController;
 use App\Controllers\BookController;
 
@@ -55,6 +56,10 @@ class Router
             case '/books':
                 $bookController = new BookController;
                 $bookController->index();
+                return;
+            case '/authors':
+                $authorController = new AuthorController;
+                $authorController->index();
                 return;
             case '/publishers':
                 $publisherController = new PublisherController;

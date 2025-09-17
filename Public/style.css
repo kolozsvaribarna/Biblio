@@ -2,20 +2,176 @@
     box-sizing: border-box;
     font-family: "Fira Code Medium", monospace;
     user-select: none;
+    color: #3f3f3f;
 }
 
-table td, table th {
-    text-align: center;
-    /*line-break: ;*/
+.nav-button {
+    list-style: none;
+    display: inline-block;
+}
+
+/*highlight button of page selected*/
+.nav-button .active {
+    background: #20c997;
+    color: #fff;
 }
 
 .index-table {
     width: 95vw;
     margin: 0 auto;
-
-    /* background-color: teal; */
 }
 
-.index-table .table-cover img {
-    width: 5vw;
+.book-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 95vw;
+    margin: 1vh auto;
+}
+
+/* INDIVIDUAL CARD */
+.book-card {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.book-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Keep your existing card styles */
+.book-card-cover {
+    width: 120px;
+    height: auto;
+    flex-shrink: 0;
+    border-radius: 4px;
+}
+
+.book-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.book-card-title {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.book-card-authors {
+    font-style: italic;
+    margin: 0.2rem 0 1rem;
+    color: #555;
+}
+
+.book-card-meta {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.book-card-meta li {
+    margin-bottom: 0.3rem;
+}
+
+/* --- ACTION BUTTONS --- */
+.book-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-top: -.5em;
+    margin-left: auto;
+}
+
+.book-card-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    padding: .6rem .8rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.book-card-actions button:hover {
+    background: #f0f0f0;
+}
+
+.book-card-actions .fa-trash {
+    color: #d9534f;
+}
+
+.book-card-actions .fa-edit {
+    color: #0275d8;
+}
+
+/* + BUTTON ABOVE TABLE */
+.table-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+}
+
+.table-header button {
+    background: #e0e0e0;
+    border: none;
+    color: #333;
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.table-header button:hover {
+    background: #20c997;
+    color: #fff;
+}
+
+.table-header .fa-plus {
+    font-size: 1.2rem;
+}
+
+/* Responsive: 1 column on small screens */
+@media (max-width: 600px) {
+    .book-card-grid {
+        grid-template-columns: 1fr; /* stack into one column */
+    }
+
+    .book-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .book-card-cover {
+        width: 70%;
+    }
+
+    .book-card-info {
+        align-items: center;
+    }
+
+    .book-card-meta {
+        text-align: left; /* keep labels aligned */
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .book-card-actions {
+        flex-direction: row; /* buttons side by side on mobile */
+        justify-content: center;
+        margin-top: 1rem;
+    }
 }
