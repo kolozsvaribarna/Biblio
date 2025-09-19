@@ -4,8 +4,9 @@ $tableBody = "";
 foreach ($books as $book) {
 
     $publisher = $book->getPublisher();
+    $authors = $book->getAuthorsByBookId();
+    $genres = $book->getGenresByBookId();
 
-    // TODO authors
     // TODO genres
 
     $tableBody .=
@@ -14,12 +15,13 @@ foreach ($books as $book) {
             <img class="book-card-cover" src="{$book->cover_url}" alt="">
                 <div class="book-card-info">
                 <h2 class="book-card-title">{$book->title}</h2>
-                <h5 class="book-card-authors">author(s)</h5>
+                <h5 class="book-card-authors">{$authors[0]['name']}</h5>
                 <ul class="book-card-meta">
-                    <li><strong>Genres:</strong> genre(s)</li>
+                    <li><strong>Genres:</strong> {$genres[0]['genre']}</li>
                     <li><strong>Pages:</strong> {$book->pages}</li>
                     <li><strong>Language:</strong> {$book->language}</li>
                     <li><strong>Release Year:</strong> {$book->release_year}</li>
+                    <li><strong>Publisher:</strong> {$publisher->name}</li>
                     <li><strong>ISBN:</strong> {$book->isbn}</li>
                     <li><strong>Available Copies:</strong> {$book->available_copies}</li>
                 </ul>
@@ -47,7 +49,6 @@ HTML;
 $html =
 <<<HTML
         <h1>Books</h1>
-        
         <table>
             <div class="table-header">
                 <form method="post" action="/books/create">

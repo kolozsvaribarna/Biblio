@@ -47,6 +47,7 @@ class AuthorsModel extends Model
         return $this->mapToModel($qryResult[0]);
     }
 
+
     public function getAuthor() {
         $author = new AuthorsModel();
         $author = $author->find($this->author_id);

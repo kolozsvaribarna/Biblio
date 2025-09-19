@@ -14,6 +14,8 @@ echo <<<HTML
     <input type="number" name="release_year" id="release_year" value="{$book->release_year}"><br>
     <label for="language">Language</label>
     <input type="text" name="language" id="language" value="{$book->language}"><br>
+    <label for="available_copies">Available copies</label>
+    <input type="number" name="available_copies" id="available_copies" value="{$book->available_copies}"><br>
     
     <label for="publisher_id">Publisher (id)</label>
     <input type="text" name="publisher_id" id="publisher_id" value="{$book->publisher_id}"><br>

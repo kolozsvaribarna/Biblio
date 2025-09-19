@@ -5,7 +5,7 @@ foreach ($authors as $author)
 {
     $tableBody .= <<<HTML
             <tr>
-                <td>{$author->author_id}</td>
+                <!--<td>{$author->author_id}</td>-->
                 <td>{$author->first_name} {$author->last_name}</td>
                 <td><p>{$author->bio}</p></td>
 
@@ -32,8 +32,9 @@ $html = <<<HTML
         <table id='' class='' border="1">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <!--<th>#</th>-->
                     <th>Name</th>
+                    <th>Biography</th>
                     <th>
                         <form method='post' action='/authors/create'>
                             <button type="submit" name='btn-plus' title='New'>

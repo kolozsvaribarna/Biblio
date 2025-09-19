@@ -5,7 +5,7 @@ foreach ($publishers as $publisher)
 {
     $tableBody .= <<<HTML
             <tr>
-                <td>{$publisher->publisher_id}</td>
+                <!--<td>{$publisher->publisher_id}</td>-->
                 <td>{$publisher->name}</td>
 
                 <td class='flex float-right'>
@@ -31,7 +31,7 @@ $html = <<<HTML
         <table id='' class='' border="1">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <!--<th>#</th>-->
                     <th>Name</th>
                     <th>
                         <form method='post' action='/publishers/create'>

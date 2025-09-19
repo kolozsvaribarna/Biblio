@@ -76,4 +76,26 @@ class BooksModel extends Model
         $publisher = $publisher->find($this->publisher_id);
         return $publisher;
     }
+
+    public function getAuthorsByBookId() {
+
+        $sql = "
+            SELECT GROUP_CONCAT(CONCAT(a.first_name, ' ', a.last_name) SEPARATOR ', ') as name
+            FROM book_author ba
+            JOIN author a ON ba.author_id = a.author_id
+            WHERE ba.book_id = :book_id";
+        $qryResult = $this->db->execSql($sql, ['book_id' => $this->book_id]);
+        return $qryResult;
+    }
+
+    public function getGenresByBookId() {
+
+        $sql = "
+            SELECT GROUP_CONCAT(CONCAT(g.name) SEPARATOR ', ') as genre
+            FROM book_genre bg
+            JOIN genre g ON bg.genre_id = g.genre_id
+            WHERE bg.book_id = :book_id";
+        $qryResult = $this->db->execSql($sql, ['book_id' => $this->book_id]);
+        return $qryResult;
+    }
 }
