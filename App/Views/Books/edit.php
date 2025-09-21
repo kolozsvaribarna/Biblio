@@ -2,7 +2,7 @@
 echo <<<HTML
 <form method='post' action='/books'>
     <input type="hidden" name="_method" value="PATCH">
-    <input type="hidden" name="id" value="{$book->book_id}">
+    <input type="hidden" name="id" value="{$book->id}">
     <fieldset>
     <label for="title">Title</label>
     <input type="text" name="title" id="title" value="{$book->title}"><br>

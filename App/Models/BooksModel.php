@@ -6,7 +6,7 @@ use App\Models\PublisherModel;
 
 class BooksModel extends Model
 {
-    public ?int $book_id = null;
+    public ?int $id = null;
     public ?string $title = null;
     public ?string $isbn = null;
     public ?int $pages = null;
@@ -19,7 +19,7 @@ class BooksModel extends Model
     protected static $table = 'book';
 
     public function __construct(
-            ?int  $book_id = null,
+            ?int  $id = null,
             ?string $title = null,
             ?string $isbn = null,
             ?int $pages = null,
@@ -30,8 +30,8 @@ class BooksModel extends Model
             ?int $publisher_id = null,)
     {
         parent::__construct();
-        if ($book_id != null) {
-            $this->book_id = $book_id;
+        if ($id != null) {
+            $this->id = $id;
         }
         if ($title != null) {
             $this->title = $title;
@@ -59,18 +59,6 @@ class BooksModel extends Model
         }
     }
 
-    function find(int $id): ?static
-    {
-        $sql = self::select() . " WHERE book_id = :id";
-
-        $qryResult = $this->db->execSql($sql, ['id' => $id]);
-        if (empty($qryResult)) {
-            return null;
-        }
-
-        return $this->mapToModel($qryResult[0]);
-    }
-
     public function getPublisher() {
         $publisher = new PublisherModel();
         $publisher = $publisher->find($this->publisher_id);
@@ -82,9 +70,9 @@ class BooksModel extends Model
         $sql = "
             SELECT GROUP_CONCAT(CONCAT(a.first_name, ' ', a.last_name) SEPARATOR ', ') as name
             FROM book_author ba
-            JOIN author a ON ba.author_id = a.author_id
+            JOIN author a ON ba.author_id = a.id
             WHERE ba.book_id = :book_id";
-        $qryResult = $this->db->execSql($sql, ['book_id' => $this->book_id]);
+        $qryResult = $this->db->execSql($sql, ['book_id' => $this->id]);
         return $qryResult;
     }
 
@@ -93,9 +81,9 @@ class BooksModel extends Model
         $sql = "
             SELECT GROUP_CONCAT(CONCAT(g.name) SEPARATOR ', ') as genre
             FROM book_genre bg
-            JOIN genre g ON bg.genre_id = g.genre_id
+            JOIN genre g ON bg.genre_id = g.id
             WHERE bg.book_id = :book_id";
-        $qryResult = $this->db->execSql($sql, ['book_id' => $this->book_id]);
+        $qryResult = $this->db->execSql($sql, ['book_id' => $this->id]);
         return $qryResult;
     }
 }

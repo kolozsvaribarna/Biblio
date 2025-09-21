@@ -5,16 +5,16 @@ foreach ($publishers as $publisher)
 {
     $tableBody .= <<<HTML
             <tr>
-                <!--<td>{$publisher->publisher_id}</td>-->
+                <!--<td>{$publisher->id}</td>-->
                 <td>{$publisher->name}</td>
 
                 <td class='flex float-right'>
                     <form method='post' action='/publishers/edit'>
-                        <input type='hidden' name='id' value='{$publisher->publisher_id}'>
+                        <input type='hidden' name='id' value='{$publisher->id}'>
                         <button type='submit' name='btn-edit' title='Edit'><i class='fa fa-edit'></i></button>
                     </form>
                     <form method='post' action='/publishers'>
-                        <input type='hidden' name='id' value='{$publisher->publisher_id}'>
+                        <input type='hidden' name='id' value='{$publisher->id}'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <button type='submit' name='btn-del' title='Delete'><i class='fa fa-trash trash'></i></button>
                     </form>
@@ -31,7 +31,6 @@ $html = <<<HTML
         <table id='' class='' border="1">
             <thead>
                 <tr>
-                    <!--<th>#</th>-->
                     <th>Name</th>
                     <th>
                         <form method='post' action='/publishers/create'>

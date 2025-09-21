@@ -5,17 +5,17 @@ foreach ($authors as $author)
 {
     $tableBody .= <<<HTML
             <tr>
-                <!--<td>{$author->author_id}</td>-->
+                <!--<td>{$author->id}</td>-->
                 <td>{$author->first_name} {$author->last_name}</td>
                 <td><p>{$author->bio}</p></td>
 
                 <td class='flex float-right'>
                     <form method='post' action='/authors/edit'>
-                        <input type='hidden' name='id' value='{$author->author_id}'>
+                        <input type='hidden' name='id' value='{$author->id}'>
                         <button type='submit' name='btn-edit' title='Edit'><i class='fa fa-edit'></i></button>
                     </form>
                     <form method='post' action='/authors'>
-                        <input type='hidden' name='id' value='{$author->author_id}'>
+                        <input type='hidden' name='id' value='{$author->id}'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <button type='submit' name='btn-del' title='Delete'><i class='fa fa-trash trash'></i></button>
                     </form>

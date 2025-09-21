@@ -5,11 +5,8 @@ namespace App\Routing;
 use App\Controllers\AuthorController;
 use App\Controllers\HomeController;
 use App\Controllers\BookController;
-
-//use App\Controllers\ReservationController;
-//use App\Controllers\RoomController;
-
 use App\Controllers\PublisherController;
+
 use App\Views\Display;
 
 class Router
@@ -105,6 +102,21 @@ class Router
             case "/publishers/edit":
                 $publisherController = new PublisherController;
                 $publisherController->edit($id);
+                break;
+
+            case "/authors":
+                if (!empty($data)) {
+                    $authorController = new AuthorController();
+                    $authorController->save($data);
+                }
+                break;
+            case "/authors/create":
+                $authorController = new AuthorController();
+                $authorController->create();
+                break;
+            case "/authors/edit":
+                $authorController = new AuthorController();
+                $authorController->edit($id);
                 break;
 
             default:

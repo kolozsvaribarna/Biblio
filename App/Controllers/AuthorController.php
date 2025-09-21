@@ -14,7 +14,7 @@ class AuthorController extends Controller {
 
     public function index(): void
     {
-        $authors = $this->model->all(['order_by' => ['author_id'], 'direction' => ['ASC']]);
+        $authors = $this->model->all(['order_by' => ['id'], 'direction' => ['ASC']]);
         $this->render('authors/index', ['authors' => $authors]);
     }
 
@@ -34,21 +34,16 @@ class AuthorController extends Controller {
 
     public function save(array $data): void
     {
-        /*if (empty($data['title']) //empty($data['book_id'])
-            || empty($data['isbn'])
-            || empty($data['pages'])
-            || empty($data['cover_url'])
-            || empty($data['available_copies'])
-            || empty($data['language'])
-            || empty($data['release_year'])
-            || empty($data['publisher_id']))
+        if (empty($data['first_name'])
+            || empty($data['last_name'])
+            || empty($data['bio']))
         {
             $_SESSION['warning_message'] = "All fields are required.";
-            $this->redirect('/books');
-        }*/
-        //$this->model->title = $data['title'];
-
-
+            $this->redirect('/authors');
+        }
+        $this->model->first_name = $data['first_name'];
+        $this->model->last_name = $data['last_name'];
+        $this->model->bio = $data['bio'];
 
         $this->model->create();
         $this->redirect('/authors');
@@ -56,33 +51,21 @@ class AuthorController extends Controller {
 
     public function update(int $id, array $data): void
     {
-        /*
-        $book = $this->model->find($id);
-        if (!$book
-            || empty($data['title'])
-            || empty($data['isbn'])
-            || empty($data['pages'])
-            || empty($data['cover_url'])
-            || empty($data['available_copies'])
-            || empty($data['language'])
-            || empty($data['release_year'])
-            || empty($data['publisher_id']))
+
+        $author = $this->model->find($id);
+        if (!$author
+            || empty($data['first_name'])
+            || empty($data['last_name'])
+            || empty($data['bio']))
         {
             $_SESSION['warning_message'] = "All fields are required.";
-            $this->redirect('/books');
+            $this->redirect('/authors');
         }
+        $author->first_name = $data['first_name'];
+        $author->last_name = $data['last_name'];
+        $author->bio = $data['bio'];
 
-        $book->book_id = $data['book_id'];
-        $book->title = $data['title'];
-        $book->isbn = $data['isbn'];
-        $book->pages = $data['pages'];
-        $book->cover_url = $data['cover_url'];
-        $book->available_copies = $data['available_copies'];
-        $book->language = $data['language'];
-        $book->release_year = $data['release_year'];
-        $book->publisher_id = $data['publisher_id'];
-
-        $book->update();*/
+        $author->update();
         $this->redirect('/authors');
     }
 

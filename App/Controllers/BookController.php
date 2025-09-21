@@ -14,7 +14,7 @@ class BookController extends Controller {
 
     public function index(): void
     {
-        $books = $this->model->all(['order_by' => ['book_id'], 'direction' => ['ASC']]);
+        $books = $this->model->all(['order_by' => ['id'], 'direction' => ['ASC']]);
         $this->render('books/index', ['books' => $books]);
     }
 
@@ -77,7 +77,7 @@ class BookController extends Controller {
             $this->redirect('/books');
         }
 
-        $book->book_id = $data['book_id'];
+        $book->id = $data['id'];
         $book->title = $data['title'];
         $book->isbn = $data['isbn'];
         $book->pages = $data['pages'];

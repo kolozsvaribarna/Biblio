@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-// use App\Models\PublisherModel;
-
 class AuthorsModel extends Model
 {
-    public ?int $author_id = null;
+    public ?int $id = null;
     public ?string $first_name = null;
     public ?string $last_name = null;
     public ?string $bio = null;
@@ -15,14 +13,14 @@ class AuthorsModel extends Model
     protected static $table = 'author';
 
     public function __construct(
-        ?int $author_id = null,
+        ?int $id = null,
         ?string $first_name = null,
         ?string $last_name = null,
         ?string $bio = null)
     {
         parent::__construct();
-        if ($author_id != null) {
-            $this->author_id = $author_id;
+        if ($id != null) {
+            $this->id = $id;
         }
         if ($first_name != null) {
             $this->first_name = $first_name;
@@ -35,22 +33,9 @@ class AuthorsModel extends Model
         }
     }
 
-    function find(int $id): ?static
-    {
-        $sql = self::select() . " WHERE author_id = :id";
-
-        $qryResult = $this->db->execSql($sql, ['id' => $id]);
-        if (empty($qryResult)) {
-            return null;
-        }
-
-        return $this->mapToModel($qryResult[0]);
-    }
-
-
     public function getAuthor() {
         $author = new AuthorsModel();
-        $author = $author->find($this->author_id);
+        $author = $author->find($this->id);
         return $author;
     }
 }

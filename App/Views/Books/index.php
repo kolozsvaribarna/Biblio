@@ -28,14 +28,14 @@ foreach ($books as $book) {
             </div>
             <div class="book-card-actions">
             <form method="post" action="/books/edit">
-              <input type="hidden" name="id" value="{$book->book_id}">
+              <input type="hidden" name="id" value="{$book->id}">
               <button type="submit" name="btn-edit" title="Edit">
                 <i class="fa fa-edit"></i>
               </button>
             </form>
         
             <form method="post" action="/books">
-              <input type="hidden" name="id" value="{$book->book_id}">
+              <input type="hidden" name="id" value="{$book->id}">
               <input type="hidden" name="_method" value="DELETE">
               <button type="submit" name="btn-del" title="Delete">
                 <i class="fa fa-trash trash"></i>
