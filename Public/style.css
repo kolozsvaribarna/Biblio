@@ -5,16 +5,63 @@
     color: #3f3f3f;
 }
 
-.nav-button {
-    list-style: none;
-    display: inline-block;
+/*NAVBAR*/
+.navbar {
+    background: #e9ecef;
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-/*highlight button of page selected*/
-.nav-button .active {
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-button a {
+    text-decoration: none;
+}
+
+.nav-button button {
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+    color: #333;
+    font-family: "Fira Code Medium", monospace;
+}
+
+.nav-button button:hover {
     background: #20c997;
     color: #fff;
 }
+
+/* Active page */
+.nav-button button.active {
+    background: #0c503c;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .nav-list {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .nav-button button {
+        width: 100%;
+        text-align: left;
+    }
+}
+/*END NAVBAR*/
 
 .index-table {
     width: 95vw;
@@ -139,6 +186,10 @@
     color: #fff;
 }
 
+.table-header button:hover i {
+    color: #fff;
+}
+
 .table-header .fa-plus {
     font-size: 1.2rem;
 }
@@ -174,4 +225,91 @@
         justify-content: center;
         margin-top: 1rem;
     }
+
+    .author-card-bio {
+        text-align: left;
+        margin: 2vh 5vh 0 0;
+    }
+
+    .author-card-name {
+        margin: 0 3vw 0 0;
+    }
 }
+
+/* AUTHORS - INDEX*/
+.authors-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.authors-header h2 {
+    margin: 0;
+}
+
+.authors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+    gap: 1rem;
+}
+
+.author-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.author-card-info {
+    flex: 1;
+}
+
+.author-card-name {
+    font-size: 1.2rem;
+    margin: 0 1rem .5rem 0;
+}
+
+.author-card-bio {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0 5vh 0 0;
+    text-align: justify;
+}
+
+.author-card-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.author-card-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: .4rem .6rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.author-card-actions button:hover {
+    background: #f0f0f0;
+}
+
+.author-card-actions .fa-trash {
+    color: #d9534f;
+}
+
+.author-card-actions .fa-edit {
+    color: #0275d8;
+}
+/*AUTHORS END*/
