@@ -2,6 +2,7 @@
 
 use App\Models\PublisherModel;
 use App\Models\AuthorsModel;
+use App\Models\GenreModel;
 
 $html = <<<HTML
 <form method='post' action='/books'>
@@ -31,6 +32,9 @@ $html = <<<HTML
     <label>Authors:</label>
     <div style="margin-left: 3vw;">%s</div>
     
+    <label>Genres:</label>
+    <div style="margin-left: 3vw;">%s</div>
+    
     <button type="submit" name="btn-update" class="btn-save"><i class="fa fa-save"></i>&nbsp;Save</button>
 </fieldset>
 </form>
@@ -55,7 +59,6 @@ foreach ($publishers as $publisher) {
 $authorOptions = "";
 $authorModel = new AuthorsModel();
 $allAuthors = $authorModel->all();
-
 $bookAuthors = array_column($book->allAuthors(), 'author_id');
 
 foreach ($allAuthors as $author) {
@@ -68,4 +71,20 @@ foreach ($allAuthors as $author) {
     $authorOptions .= "<label for='". $author->id ."'>". $author->first_name ." ". $author->last_name ."</label><br>";
 }
 
-printf($html, $publisherOptions, $authorOptions);
+$genreOptions = "";
+$genreModel = new GenreModel();
+$genres = $genreModel->all();
+$bookGenres = array_column($book->allGenres(), 'genre_id');
+
+foreach ($genres as $genre) {
+
+    if (in_array($genre->id, $bookGenres)) {
+        $genreOptions .= "<input type='checkbox' id='". $genre->id ."' name='genres[]' value='". $genre->id ."' checked>";
+    }
+    else {
+        $genreOptions .= "<input type='checkbox' id='". $genre->id ."' name='genres[]' value='". $genre->id ."'>";
+    }
+    $genreOptions .= "<label for='". $genre->id ."'>". $genre->name ."</label><br>";
+}
+
+printf($html, $publisherOptions, $authorOptions, $genreOptions);

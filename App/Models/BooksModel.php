@@ -79,6 +79,42 @@ class BooksModel extends Model
         }
     }
 
+    public function saveBookGenre(int $bookId, array $genres) {
+        $sql = "
+            INSERT INTO book_genre (book_id, genre_id)
+            VALUES (:book_id, :genre_id)";
+
+        try {
+            foreach ($genres as $genre_id) {
+                $this->db->execSql($sql, [
+                    ':book_id' => $bookId,
+                    ':genre_id' => $genre_id
+                ]);
+            }
+            return true;
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function editBookGenre($id, $genres)
+    {
+        try {
+            // remove old authors
+            $this->db->execSql("
+                DELETE FROM book_genre WHERE book_id = :book_id",
+                [':book_id' => $id]);
+
+            // insert new authors
+            $this->saveBookGenre($id, $genres);
+            return true;
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+    }
+
     public function editBookAuthor($id, $authors)
     {
         try {
@@ -100,6 +136,16 @@ class BooksModel extends Model
     {
         $sql = "
             SELECT author_id FROM book_author
+            WHERE book_id = :book_id";"
+            ";
+        $qryResult = $this->db->execSql($sql, ['book_id' => $this->id]);
+        return $qryResult;
+    }
+
+    public function allGenres()
+    {
+        $sql = "
+            SELECT genre_id FROM book_genre
             WHERE book_id = :book_id";"
             ";
         $qryResult = $this->db->execSql($sql, ['book_id' => $this->id]);

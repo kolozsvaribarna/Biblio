@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\GenreModel;
 use App\Models\PublisherModel;
 use App\Models\AuthorsModel;
 
@@ -28,7 +29,9 @@ $html = <<<HTML
         <label>Authors:</label>
         <div style="margin-left: 3vw;">%s</div>
         
-        <!--TODO: add GENRE selection --> 
+        <label>Genres:</label>
+        <div style="margin-left: 3vw;">%s</div>
+        
     <br>
     <button type="submit" name="btn-update" class="btn-save"><i class="fa fa-save"></i>&nbsp;Save</button>
 </fieldset>
@@ -55,5 +58,13 @@ foreach ($authors as $author) {
     <label for='". $author->id ."'>". $author->first_name ." ". $author->last_name ."</label><br>";
 }
 
+$genreOptions = "";
+$genreModel = new GenreModel();
+$genres = $genreModel->all();
+foreach ($genres as $genre) {
+    $genreOptions .= "<input type='checkbox' id='". $genre->id ."' name='genres[]' value='". $genre->id ."'>
+    <label for='". $genre->id ."'>". $genre->name ."</label><br>";
+}
 
-printf($html, $publisherOptions, $authorOptions);
+
+printf($html, $publisherOptions, $authorOptions, $genreOptions);

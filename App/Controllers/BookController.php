@@ -42,7 +42,8 @@ class BookController extends Controller {
             || empty($data['language'])
             || empty($data['release_year'])
             || empty($data['publisher_id'])
-            || empty($data['authors']))
+            || empty($data['authors'])
+            || empty($data['genres']))
         {
             $_SESSION['warning_message'] = "All fields are required.";
             $this->redirect('/books');
@@ -59,6 +60,7 @@ class BookController extends Controller {
         $bookId = $this->model->create();
 
         $this->model->saveBookAuthor($bookId, $data['authors']);
+        $this->model->saveBookGenre($bookId, $data['genres']);
 
         $this->redirect('/books');
     }
@@ -75,7 +77,8 @@ class BookController extends Controller {
         || empty($data['language'])
         || empty($data['release_year'])
         || empty($data['publisher_id'])
-        || empty($data['authors']))
+        || empty($data['authors'])
+        || empty($data['genres']))
         {
             $_SESSION['warning_message'] = "All fields are required.";
             $this->redirect('/books');
@@ -92,6 +95,7 @@ class BookController extends Controller {
         $book->publisher_id = $data['publisher_id'];
 
         $this->model->editBookAuthor($id, $data['authors']);
+        $this->model->editBookGenre($id, $data['genres']);
 
         $book->update();
         $this->redirect('/books');

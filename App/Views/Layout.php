@@ -42,6 +42,7 @@ class Layout
                <li class="nav-button"><a href="/books"><button style="button">Books</button></a></li>
                <li class="nav-button"><a href="/authors"><button style="button">Authors</button></a></li>
                <li class="nav-button"><a href="/publishers"><button style="button">Publishers</button></a></li>
+               <li class="nav-button"><a href="/genres"><button style="button">Genres</button></a></li>
             </ul>
         </nav>
     HTML;

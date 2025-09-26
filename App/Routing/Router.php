@@ -3,6 +3,7 @@
 namespace App\Routing;
 
 use App\Controllers\AuthorController;
+use App\Controllers\GenreController;
 use App\Controllers\HomeController;
 use App\Controllers\BookController;
 use App\Controllers\PublisherController;
@@ -62,6 +63,10 @@ class Router
                 $publisherController = new PublisherController;
                 $publisherController->index();
                 return;
+            case '/genres':
+                $genreController = new GenreController;
+                $genreController->index();
+                return;
 
             default:
                 $this->notFound();
@@ -119,6 +124,21 @@ class Router
                 $authorController->edit($id);
                 break;
 
+            case "/genres":
+                if (!empty($data)) {
+                    $genreController = new GenreController;
+                    $genreController->save($data);
+                }
+                break;
+            case "/genres/create":
+                $genreController = new GenreController;
+                $genreController->create();
+                break;
+            case "/genres/edit":
+                $genreController = new GenreController;
+                $genreController->edit($id);
+                break;
+
             default:
                 $this->notFound();
                 break;
@@ -142,6 +162,12 @@ class Router
                 $publisherController->update($id, $data);
                 break;
 
+            case "/genres":
+                $id = $data['id'] ?? null;
+                $genreController = new GenreController;
+                $genreController->update($id, $data);
+                break;
+
             default:
                 $this->notFound();
                 break;
@@ -161,6 +187,11 @@ class Router
             case "/publishers":
                 $publisherController = new PublisherController;
                 $publisherController->delete((int)$data['id']);
+                break;
+
+            case "/genres":
+                $genreController = new GenreController;
+                $genreController->delete((int)$data['id']);
                 break;
 
             default:
