@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\PublisherModel;
+use PDOException;
 
 class BooksModel extends Model
 {
@@ -57,6 +58,52 @@ class BooksModel extends Model
         if ($available_copies != null) {
             $this->available_copies = $available_copies;
         }
+    }
+
+    public function saveBookAuthor(int $bookId, array $authors) {
+        $sql = "
+            INSERT INTO book_author (book_id, author_id)
+            VALUES (:book_id, :author_id)";
+
+        try {
+            foreach ($authors as $authorId) {
+                $this->db->execSql($sql, [
+                    ':book_id' => $bookId,
+                    ':author_id' => $authorId
+                ]);
+            }
+            return true;
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function editBookAuthor($id, $authors)
+    {
+        try {
+            // remove old authors
+            $this->db->execSql("
+                DELETE FROM book_author WHERE book_id = :book_id",
+                [':book_id' => $id]);
+
+            // insert new authors
+            $this->saveBookAuthor($id, $authors);
+            return true;
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function allAuthors()
+    {
+        $sql = "
+            SELECT author_id FROM book_author
+            WHERE book_id = :book_id";"
+            ";
+        $qryResult = $this->db->execSql($sql, ['book_id' => $this->id]);
+        return $qryResult;
     }
 
     public function getPublisher() {

@@ -53,8 +53,7 @@ class PublisherController extends Controller {
             $_SESSION['warning_message'] = "All fields are required.";
             $this->redirect('/publishers');
         }
-
-        $publisher->publisher_id = $data['publisher_id'];
+        
         $publisher->name = $data['name'];
 
         $publisher->update();

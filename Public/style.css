@@ -36,6 +36,7 @@
     cursor: pointer;
     transition: background 0.25s ease, color 0.25s ease;
     color: #333;
+    font-weight: bold;
     font-family: "Fira Code Medium", monospace;
 }
 
@@ -95,9 +96,8 @@
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-/* Keep your existing card styles */
 .book-card-cover {
-    width: 120px;
+    width: 150px;
     height: auto;
     flex-shrink: 0;
     border-radius: 4px;

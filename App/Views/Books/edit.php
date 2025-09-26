@@ -1,5 +1,9 @@
 <?php
-echo <<<HTML
+
+use App\Models\PublisherModel;
+use App\Models\AuthorsModel;
+
+$html = <<<HTML
 <form method='post' action='/books'>
     <input type="hidden" name="_method" value="PATCH">
     <input type="hidden" name="id" value="{$book->id}">
@@ -17,11 +21,16 @@ echo <<<HTML
     <label for="available_copies">Available copies</label>
     <input type="number" name="available_copies" id="available_copies" value="{$book->available_copies}"><br>
     
-    <label for="publisher_id">Publisher (id)</label>
-    <input type="text" name="publisher_id" id="publisher_id" value="{$book->publisher_id}"><br>
+    <label for="publisher_id">Publisher</label>
+    <select name="publisher_id" id="publisher_id">
+        %s
+    </select><br>
     <label for="cover_url">Cover URL</label>
-    <input type="url" name="cover_url" id="cover_url" value="{$book->cover_url}"><br>          
-    <br>
+    <input type="url" name="cover_url" id="cover_url" value="{$book->cover_url}">
+    <br>          
+    <label>Authors:</label>
+    <div style="margin-left: 3vw;">%s</div>
+    
     <button type="submit" name="btn-update" class="btn-save"><i class="fa fa-save"></i>&nbsp;Save</button>
 </fieldset>
 </form>
@@ -31,8 +40,32 @@ echo <<<HTML
 </form>
 HTML;
 
-/*<!--<label for="genre_id">Genre (id)</label>
-    <input type="text" name="genre_id" id="genre_id" value="{$book->genre_id}"><br>
-    <label for="author_id">Author (id)</label>
-    <input type="text" name="author_id" id="author_id" value="{$book->author_id}"><br>-->
-*/
+$publisherOptions = "";
+$publisherModel = new PublisherModel();
+$publishers = $publisherModel->all();
+foreach ($publishers as $publisher) {
+    if ($publisher->id == $book->publisher_id) {
+        $publisherOptions .= "<option value='" . $publisher->id . "' selected>" . $publisher->name . "</option>";
+    }
+    else {
+        $publisherOptions .= "<option value='" . $publisher->id . "'>" . $publisher->name . "</option>";
+    }
+}
+
+$authorOptions = "";
+$authorModel = new AuthorsModel();
+$allAuthors = $authorModel->all();
+
+$bookAuthors = array_column($book->allAuthors(), 'author_id');
+
+foreach ($allAuthors as $author) {
+    if (in_array($author->id, $bookAuthors)) {
+        $authorOptions .= "<input type='checkbox' id='". $author->id ."' name='authors[]' value='". $author->id ."' checked>";
+    }
+    else {
+        $authorOptions .= "<input type='checkbox' id='" . $author->id . "' name='authors[]' value='" . $author->id . "'>";
+    }
+    $authorOptions .= "<label for='". $author->id ."'>". $author->first_name ." ". $author->last_name ."</label><br>";
+}
+
+printf($html, $publisherOptions, $authorOptions);

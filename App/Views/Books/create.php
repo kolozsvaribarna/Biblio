@@ -1,7 +1,12 @@
 <?php
-echo <<<HTML
+
+use App\Models\PublisherModel;
+use App\Models\AuthorsModel;
+
+$html = <<<HTML
 <form method='post' action='/books'>
-    <fieldset>   
+    <fieldset>
+        <legend>Add a new book</legend>
         <label for="title">Title</label>
         <input type="text" name="title" id="title" value=""><br>
         <label for="pages">Pages</label>
@@ -14,13 +19,16 @@ echo <<<HTML
         <input type="number" name="release_year" id="release_year" value=""><br>
         <label for="language">Language</label>
         <input type="text" name="language" id="language" value=""><br>
-        <label for="publisher_id">Publisher (id)</label>
-        <input type="text" name="publisher_id" id="publisher_id" value=""><br>
         <label for="cover_url">Cover URL</label>
-        <input type="url" name="cover_url" id="cover_url" value=""><br>    
+        <input type="url" name="cover_url" id="cover_url" value=""><br>
+        <label for="publisher_id">Publisher</label>
+        <select name="publisher_id" id="publisher_id">
+            %s
+        </select><br>
+        <label>Authors:</label>
+        <div style="margin-left: 3vw;">%s</div>
         
-        <!-- TODO make publisher dropdown when typing (+ option to add new)
-             TODO: add AUTHOR and GENRE selection   --> 
+        <!--TODO: add GENRE selection --> 
     <br>
     <button type="submit" name="btn-update" class="btn-save"><i class="fa fa-save"></i>&nbsp;Save</button>
 </fieldset>
@@ -31,3 +39,21 @@ echo <<<HTML
 <button type="submit" name="btn-cancel" class="btn-cancel"><i class="fa fa-undo"></i>&nbsp;Back</button>
 </form>
 HTML;
+
+$publisherOptions = "";
+$publisherModel = new PublisherModel();
+$publishers = $publisherModel->all();
+foreach ($publishers as $publisher) {
+    $publisherOptions .= "<option value='" . $publisher->id . "'>" . $publisher->name . "</option>";
+}
+
+$authorOptions = "";
+$authorModel = new AuthorsModel();
+$authors = $authorModel->all();
+foreach ($authors as $author) {
+    $authorOptions .= "<input type='checkbox' id='". $author->id ."' name='authors[]' value='". $author->id ."'>
+    <label for='". $author->id ."'>". $author->first_name ." ". $author->last_name ."</label><br>";
+}
+
+
+printf($html, $publisherOptions, $authorOptions);
