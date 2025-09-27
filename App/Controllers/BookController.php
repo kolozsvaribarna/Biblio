@@ -14,7 +14,7 @@ class BookController extends Controller {
 
     public function index(): void
     {
-        $books = $this->model->all(['order_by' => ['id'], 'direction' => ['ASC']]);
+        $books = $this->model->all(['order_by' => ['title'], 'direction' => ['ASC']]);
         $this->render('books/index', ['books' => $books]);
     }
 
