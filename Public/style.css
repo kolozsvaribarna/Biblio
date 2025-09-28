@@ -41,14 +41,19 @@
 }
 
 .nav-button button:hover {
-    background: #20c997;
+    background: #18ac81;
     color: #fff;
 }
 
-/* Active page */
 .nav-button button.active {
-    background: #0c503c;
+    background: #127e5f;
     color: #fff;
+}
+
+.nav-button button.active:hover {
+    color: white;
+    background: #18ac81;
+    border-color: #127e5f;
 }
 
 @media (max-width: 600px) {
@@ -243,11 +248,9 @@
     align-items: center;
     margin: 1rem 0;
 }
-
-.authors-header h2 {
-    margin: 0;
+.authors-header form {
+    margin: 0 auto;
 }
-
 .authors-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));

@@ -68,6 +68,11 @@ $html = <<<HTML
         
         <div class="form-actions">
             <button type="submit" name="btn-update" class="btn-save"><i class="fa fa-save"></i>&nbsp;Save</button>
+        </div>
+    </form>
+    <form method="post" action="/books">
+        <div class="form-actions-back">
+        <input type="hidden" name="_method" value="GET">
             <button type="submit" name="btn-cancel" class="btn-cancel"><i class="fa fa-undo"></i>&nbsp;Back</button>
         </div>
     </form>
@@ -85,21 +90,20 @@ $authorOptions = "";
 $authorModel = new AuthorsModel();
 $authors = $authorModel->all();
 foreach ($authors as $author) {
-    $authorOptions .= "<div class='checkbox-item'><input type='checkbox' id='". $author->id ."' name='authors[]' value='". $author->id ."'><label for='". $author->id ."'>". $author->first_name ." ". $author->last_name ."</label></div>";
+    $authorOptions .= "<div class='checkbox-item'><input type='checkbox' id='a". $author->id ."' name='authors[]' value='". $author->id ."'><label for='a". $author->id ."'>". $author->first_name ." ". $author->last_name ."</label></div>";
 }
 
 $genreOptions = "";
 $genreModel = new GenreModel();
 $genres = $genreModel->all();
 foreach ($genres as $genre) {
-    $genreOptions .= "<div class='checkbox-item'><input type='checkbox' id='". $genre->id ."' name='genres[]' value='". $genre->id ."'><label for='". $genre->id ."'>". $genre->name ."</label></div>";
+    $genreOptions .= "<div class='checkbox-item'><input type='checkbox' id='g". $genre->id ."' name='genres[]' value='". $genre->id ."'><label for='g". $genre->id ."'>". $genre->name ."</label></div>";
 }
 
 printf($html, $publisherOptions, $authorOptions, $genreOptions);
 ?>
 
 <style>
-    /* FORM STYLING */
     .form-container {
         width: 95vw;
         margin: 2vh auto;
@@ -192,6 +196,15 @@ printf($html, $publisherOptions, $authorOptions, $genreOptions);
         margin: 0;
     }
 
+    .checkbox-item input[type="checkbox"]:checked {
+        accent-color: #127e5f;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + label {
+        color: #127e5f;
+        font-weight: bold;
+    }
+
     .form-actions {
         display: flex;
         gap: 1rem;
@@ -199,6 +212,10 @@ printf($html, $publisherOptions, $authorOptions, $genreOptions);
         margin-top: 1rem;
         padding-top: 1rem;
         border-top: 1px solid #e9ecef;
+    }
+
+    .form-actions-back {
+        margin-top: -2.5rem;
     }
 
     .btn-save, .btn-cancel {
@@ -244,6 +261,10 @@ printf($html, $publisherOptions, $authorOptions, $genreOptions);
 
         .form-actions {
             flex-direction: column;
+        }
+
+        .form-actions-back {
+            margin-top: 1rem;
         }
 
         .btn-save, .btn-cancel {

@@ -111,16 +111,16 @@ class Router
 
             case "/authors":
                 if (!empty($data)) {
-                    $authorController = new AuthorController();
+                    $authorController = new AuthorController;
                     $authorController->save($data);
                 }
                 break;
             case "/authors/create":
-                $authorController = new AuthorController();
+                $authorController = new AuthorController;
                 $authorController->create();
                 break;
             case "/authors/edit":
-                $authorController = new AuthorController();
+                $authorController = new AuthorController;
                 $authorController->edit($id);
                 break;
 
@@ -168,6 +168,12 @@ class Router
                 $genreController->update($id, $data);
                 break;
 
+            case "/authors":
+                $id = $data['id'] ?? null;
+                $authorController = new AuthorController;
+                $authorController->update($id, $data);
+                break;
+
             default:
                 $this->notFound();
                 break;
@@ -192,6 +198,11 @@ class Router
             case "/genres":
                 $genreController = new GenreController;
                 $genreController->delete((int)$data['id']);
+                break;
+
+            case "/authors":
+                $authorController = new AuthorController;
+                $authorController->delete((int)$data['id']);
                 break;
 
             default:

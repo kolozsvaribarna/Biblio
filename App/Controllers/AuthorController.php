@@ -15,7 +15,7 @@ class AuthorController extends Controller {
     public function index(): void
     {
         $authors = $this->model->all(['order_by' => ['first_name'], 'direction' => ['ASC']]);
-        $this->render('authors/index', ['authors' => $authors]);
+        $this->render('authors/index', ['authors' => $authors, 'title' => 'Biblio - Authors']);
     }
 
     public function create(): void

@@ -7,8 +7,6 @@ foreach ($books as $book) {
     $authors = $book->getAuthorsByBookId();
     $genres = $book->getGenresByBookId();
 
-    // TODO genres
-
     $tableBody .=
 <<<HTML
         <div class="book-card">

@@ -15,7 +15,7 @@ class GenreController extends Controller {
     public function index(): void
     {
         $genres = $this->model->all(['order_by' => ['id'], 'direction' => ['ASC']]);
-        $this->render('genres/index', ['genres' => $genres]);
+        $this->render('genres/index', ['genres' => $genres, 'title' => 'Biblio - Genres']);
     }
 
     public function create(): void

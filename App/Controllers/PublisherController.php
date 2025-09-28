@@ -15,7 +15,7 @@ class PublisherController extends Controller {
     public function index(): void
     {
         $publishers = $this->model->all(['order_by' => ['id'], 'direction' => ['ASC']]);
-        $this->render('publishers/index', ['publishers' => $publishers]);
+        $this->render('publishers/index', ['publishers' => $publishers, 'title' => 'Biblio - Publishers']);
     }
 
     public function create(): void
