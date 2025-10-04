@@ -179,4 +179,78 @@ class BooksModel extends Model
         $qryResult = $this->db->execSql($sql, ['book_id' => $this->id]);
         return $qryResult;
     }
+
+    public function filter(array $filters = [], $orderBy = []): array
+    {
+        $sql = "SELECT DISTINCT b.* FROM `" . static::$table . "` b";
+        $params = [];
+
+        if (!empty($filters['author_id'])) {
+            $sql .= " 
+            INNER JOIN book_author ba ON b.id = ba.book_id
+        ";
+        }
+
+        if (!empty($filters['genre_id'])) {
+            $sql .= " 
+            INNER JOIN book_genre bg ON b.id = bg.book_id
+        ";
+        }
+
+        $whereClauses = [];
+
+        // Publisher
+        if (!empty($filters['publisher_id'])) {
+            $whereClauses[] = "b.publisher_id = :publisher_id";
+            $params['publisher_id'] = (int)$filters['publisher_id'];
+        }
+
+        // Language
+        if (!empty($filters['language'])) {
+            $whereClauses[] = "b.language = :language";
+            $params['language'] = strtoupper($filters['language']);
+        }
+
+        // Author
+        if (!empty($filters['author_id']) && is_array($filters['author_id'])) {
+            $placeholders = [];
+            foreach ($filters['author_id'] as $index => $authorId) {
+                $paramName = "author_$index";
+                $placeholders[] = ":$paramName";
+                $params[$paramName] = (int)$authorId;
+            }
+            $whereClauses[] = "ba.author_id IN (" . implode(", ", $placeholders) . ")";
+        }
+
+        // Genre
+        if (!empty($filters['genre_id']) && is_array($filters['genre_id'])) {
+            $placeholders = [];
+            foreach ($filters['genre_id'] as $index => $genreId) {
+                $paramName = "genre_$index";
+                $placeholders[] = ":$paramName";
+                $params[$paramName] = (int)$genreId;
+            }
+            $whereClauses[] = "bg.genre_id IN (" . implode(", ", $placeholders) . ")";
+        }
+
+        if (!empty($whereClauses)) {
+            $sql .= " WHERE " . implode(" AND ", $whereClauses);
+        }
+
+        $sql .= self::orderBy($orderBy);
+
+        $qryResult = $this->db->execSql($sql, $params);
+
+        if (empty($qryResult)) {
+            return [];
+        }
+
+        $results = [];
+        foreach ($qryResult as $row) {
+            $results[] = $this->mapToModel($row);
+        }
+
+        return $results;
+    }
+
 }

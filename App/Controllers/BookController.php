@@ -2,8 +2,6 @@
 namespace App\Controllers;
 use App\Models\BooksModel;
 
-use App\Views\Display;
-
 class BookController extends Controller {
 
     public function __construct()
@@ -15,6 +13,36 @@ class BookController extends Controller {
     public function index(): void
     {
         $books = $this->model->all(['order_by' => ['title'], 'direction' => ['ASC']]);
+        $this->render('books/index', ['books' => $books, 'title' => 'Biblio - Books']);
+    }
+
+    public function filter(): void
+    {
+        $filters = [];
+
+        if (!empty($_GET['publisher'])) {
+            $filters['publisher_id'] = (int) $_GET['publisher'];
+        }
+
+        if (!empty($_GET['authors']) && is_array($_GET['authors'])) {
+            $authors = array_map('intval', $_GET['authors']);
+            if (!empty($authors)) {
+                $filters['author_id'] = $authors;
+            }
+        }
+
+        if (!empty($_GET['genres']) && is_array($_GET['genres'])) {
+            $genres = array_map('intval', $_GET['genres']);
+            if (!empty($genres)) {
+                $filters['genre_id'] = $genres;
+            }
+        }
+
+        if (!empty($_GET['language'])) {
+            $filters['language'] = strtoupper(substr($_GET['language'], 0, 2));
+        }
+
+        $books = $this->model->filter($filters, ['order_by' => ['title'], 'direction' => ['ASC']]);
         $this->render('books/index', ['books' => $books, 'title' => 'Biblio - Books']);
     }
 
@@ -34,7 +62,7 @@ class BookController extends Controller {
 
     public function save(array $data): void
     {
-        if (empty($data['title']) //empty($data['book_id'])
+        if (empty($data['title'])
             || empty($data['isbn'])
             || empty($data['pages'])
             || empty($data['cover_url'])

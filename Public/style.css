@@ -189,6 +189,7 @@
 .table-header button:hover {
     background: #20c997;
     color: #fff;
+    transform: translateY(-1px);
 }
 
 .table-header button:hover i {

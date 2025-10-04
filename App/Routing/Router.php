@@ -47,13 +47,14 @@ class Router
 
     private function handleGetRequests(string $requestUri): void
     {
-        switch ($requestUri) {
+        switch (parse_url($requestUri, PHP_URL_PATH)) {
             case '/':
                 HomeController::index();
                 return;
             case '/books':
                 $bookController = new BookController;
-                $bookController->index();
+                $bookController->filter();
+                $_SESSION["sql"] = true;
                 return;
             case '/authors':
                 $authorController = new AuthorController;
